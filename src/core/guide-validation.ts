@@ -836,11 +836,7 @@ export function scanAllGuides(scanDir = guidesDir): GuideInventory[] {
     const categoryDir = path.join(scanDir, category);
     if (!fs.existsSync(categoryDir)) continue;
 
-    // Scan subdirectories
-    for (const entry of fs.readdirSync(categoryDir, { withFileTypes: true })) {
-      if (!entry.isDirectory() || entry.name.startsWith('.') || entry.name === 'node_modules') continue;
-      guides.push(inventoryGuide(path.join(categoryDir, entry.name)));
-    }
+    if (!fs.existsSync(scanDir)) return guides;
   }
   return guides;
 }
